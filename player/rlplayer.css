@@ -2,8 +2,8 @@
  * ActivePresenter HTML5 Output File
  * Copyright (c) Atomi Systems, Inc. All rights reserved.
  * https://atomisystems.com/activepresenter/
- * Version: 7.5.4
- * Date: 2019.01.24
+ * Version: 8.2.2
+ * Date: 2020.10.20
  */
 .ap-no-select {
 	-webkit-touch-callout: none; /* iOS Safari */
@@ -18,6 +18,35 @@
 
 video::-webkit-media-controls { /* hide media controls by default */
 	display:none !important;
+}
+
+.ap-floating-button {
+	display: none;
+}
+
+@media only screen and (max-height: 415px) {
+	.ap-auto-hide {
+		display: none !important;
+	}
+	.ap-floating-button {
+		position: absolute !important;
+		width: 25px;
+		height: 25px;
+		background-color: rgba(233, 233, 233, 0.8);;
+		border: 4px solid rgba(40, 44, 52, 0.5);
+		border-radius: 50%;
+		z-index: 2000;
+		display: flex !important;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.ap-floating-button > div {
+		width: 17px;
+		height: 17px;
+		border-radius: 50%;
+		background-color: rgba(255, 255, 255, 0.8);
+	}
 }
 
 .ap-fullscreen {
@@ -103,6 +132,12 @@ video::-webkit-media-controls { /* hide media controls by default */
 	border-radius: 0px;
 	overflow-x: hidden;
 	overflow-y: auto;
+	z-index: 3;
+}
+
+.ap-side-bar[collapse='true'] {
+	width: 0px !important;
+	background-color: rgba(0, 0, 0, 0) !important;
 }
 
 .ap-prez-container[data-mode='1'] .ap-side-bar{
@@ -138,51 +173,44 @@ video::-webkit-media-controls { /* hide media controls by default */
 }
 
 .ap-side-bar-expand {
-	width: 100% !important;
-	right: 0 !important;
-	border: none !important;
-	border-radius: 0 !important;
-	margin: 0 !important;
-	min-height: 36px;
+	position: absolute;
+	display: none;
+	width: 8px;
+	height: 130px;
+	top: 50%;
+	z-index: 4;
+	background-color: rgba(255, 255, 255, 0.6);
+	box-shadow: 0 0px 4px rgba(0, 0, 0, 0.46);
 }
 
-.ap-side-bar-expand .ap-button-icon {
-	margin: auto 0 auto auto !important;
-	min-width: 24px !important;
-	width: 24px !important;
+.ap-side-bar-expand[sidebar-show='false'] {
+	display: none !important;
 }
 
-.ap-side-bar-expand svg {
-	width: 24px !important;
-	height: 36px !important;
+.ap-side-bar-expand[icon-type='right'] {
+	border-radius: 0 16px 16px 0 !important;
 }
 
-.ap-side-bar-expand[icon-type='right'] svg:nth-child(1) {
-	transform: translate(-50%, -50%) rotate(0deg) !important;
+.ap-side-bar-expand[icon-type='left'] {
+	border-radius: 16px 0 0 16px !important;
 }
 
-.ap-side-bar-expand[icon-type='left'] svg:nth-child(1) {
-	transform: translate(-50%, -50%) rotate(180deg) !important;
+.ap-side-bar-expand[data-value='true'][icon-type='left'] {
+	transform: translateY(-50%) translateX(-100%);
 }
 
-.ap-side-bar-expand[icon-type='right'][data-value='true'] .ap-button-icon {
-	margin-left: 0 !important;
+.ap-side-bar-expand[data-value='true'][icon-type='right'] {
+	transform: translateY(-50%);
 }
 
-.ap-prez-container[data-mode='1'] .ap-side-bar-expand svg *{
-	fill: rgb(231, 92, 12);
+.ap-side-bar-expand[data-value='false'][icon-type='right'] {
+	left: 0;
+	transform: translateY(-50%);
 }
 
-.ap-prez-container[data-mode='2'] .ap-side-bar-expand svg *{
-	fill: rgb(231, 92, 12);
-}
-
-.ap-prez-container[data-mode='3'] .ap-side-bar-expand svg *{
-	fill: rgb(231, 92, 12);
-}
-
-.ap-prez-container[data-mode='4'] .ap-side-bar-expand svg *{
-	fill: rgb(231, 92, 12);
+.ap-side-bar-expand[data-value='false'][icon-type='left'] {
+	right: 0;
+	transform: translateY(-50%);
 }
 
 .ap-presenter-info {
@@ -321,8 +349,9 @@ video::-webkit-media-controls { /* hide media controls by default */
 }
 /* drop holder in sequence question */
 .ap-ctrl-drop-placeholder {
-	border: 2px solid yellow;
-	margin: -2px;		/* = -border-width: to position correctly */
+	-webkit-box-shadow:inset 0px 0px 0px 2px yellow;
+	-moz-box-shadow:inset 0px 0px 0px 2px yellow;
+	box-shadow:inset 0px 0px 0px 2px yellow;
 }
 
 .ap-ctrl-dragsource-hilight,
@@ -469,6 +498,27 @@ video::-webkit-media-controls { /* hide media controls by default */
 
 .ap-popup *:focus {
 	outline: #808080 dotted 1px;
+}
+
+#UnmuteHint {
+	position:absolute;
+	top:20px;
+	left:0px;
+	width:100%;
+	height:auto;
+	z-index:8;
+	pointer-events:none;
+	text-align:right;
+	background-color:none;
+}
+
+#UnmuteHint > span {
+	background-color:rgba(255, 255, 255, 0.8);
+	padding:15px;
+	font-size:16px;
+	font-family:Arial;
+	border: 1px solid #777777;
+	margin:10px;
 }
 
 /* attached resources */
